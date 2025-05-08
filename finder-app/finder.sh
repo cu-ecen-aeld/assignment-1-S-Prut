@@ -16,13 +16,11 @@ echo " arg1 - a path to a directory on the filesystem in which files should be s
 echo " arg2 - a string to be searched, e.g. my_search_string (the string doesnot include a space or any specific character)"
 echo
 
-echo -n "number of added arguments: $#"
+echo "number of added arguments: $#"
 if [ $# -lt 2 ]
 then
     echo " - failed: invalid number of arguments"
     exit 1
-else
-  echo " - Ok"
 fi
 
 success_result="search was successful !"
@@ -30,17 +28,14 @@ unsuccess_result="!!! failed: search was unsuccessfully !!!"
 filesdir=$1
 searchstr=$2
 matching_files_result=$(grep -rl "${searchstr}" "${filesdir}"/)
-tst=$(grep -rl "${searchstr}" "${filesdir}" | grep -co ".*$"); num_files=0; for i in $tst; do num_files=$((num_files+i)); done
-#echo $1
+#tst=$(grep -rl "${searchstr}" "${filesdir}" | grep -co ".*$"); num_files=0; for i in $tst; do num_files=$((num_files+i)); done
+num_files=$(grep -rl "${searchstr}" "${filesdir}" | wc -l)
+#num_files=$(find "${filesdir}" -type f | wc -l)
+
 matching_lines_result=$(grep -r "${searchstr}" "${filesdir}"/)
-tst=$(grep -Rc "${searchstr}" "${filesdir}" | grep -o "[0-9]*$"); num_lines=0; for i in $tst; do num_lines=$((num_lines+i)); done
-#tst=$(grep -Rc "${searchstr}" "${filesdir}" | grep -o "[0-9]*$") 
-#echo $tst
-#num_lines=0
-#for i in $tst
-#do
-#  num_lines=$((num_lines+i))
-#done
+#tst=$(grep -Rc "${searchstr}" "${filesdir}" | grep -o "[0-9]*$"); num_lines=0; for i in $tst; do num_lines=$((num_lines+i)); done
+num_lines=$(grep -r "${searchstr}" "${filesdir}" | wc -l)
+
 if [ $? -eq 0 ] ; then
     echo "${success_result}"
     #echo "${matching_files_result}"
