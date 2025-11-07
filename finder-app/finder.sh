@@ -8,6 +8,7 @@
 #--------------------------------------------------------
 #Author: Sergiy Prutyanyy
 #Date:   04/25/2025
+#last change: 11/07/25
 
 echo "This script searchs a string in all files in a specified directory"
 echo "Author: Sergiy Prutyanyy (as part of exercises in the AESD lectures)"
